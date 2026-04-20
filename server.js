@@ -12,16 +12,16 @@ const io = new Server(server, {
 
 // Simple test route
 app.get("/", (req, res) => {
-  res.send("🚗 Robot server is running!");
+  res.send("Robot server is running!");
 });
 
 // When client connects
 io.on("connection", (socket) => {
-  console.log("🔌 Client connected");
+  console.log("Client connected");
 
   // Receive control data from phone
   socket.on("control", (data) => {
-    console.log("🎮 Control:", data);
+    console.log("Control:", data);
 
     // Send to all (ESP32 or other clients)
     io.emit("control", data);
@@ -29,12 +29,12 @@ io.on("connection", (socket) => {
 
   // Receive battery from ESP32
   socket.on("battery", (value) => {
-    console.log("🔋 Battery:", value);
+    console.log("Battery:", value);
     io.emit("battery", value);
   });
 
   socket.on("disconnect", () => {
-    console.log("❌ Client disconnected");
+    console.log("Client disconnected");
   });
 });
 
@@ -42,5 +42,5 @@ io.on("connection", (socket) => {
 const PORT = process.env.PORT || 3000;
 
 server.listen(PORT, () => {
-  console.log("🚀 Server running on port " + PORT);
+  console.log("Server running on port " + PORT);
 });
